@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Seguro - {{ produto.nome }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header><a href="/">LOJA DROP - CHECKOUT SEGURO</a></header>
+    <main>
+        <div class="checkout-form">
+            <h2 style="text-align:center; margin-top:0;">Finalizar Compra</h2>
+            <p style="text-align:center; color:gray; margin-bottom: 30px;">{{ produto.nome }} - R$ {{ "%.2f"|format(produto.preco)|replace('.', ',') }}</p>
+            
+            <form action="{{ url_for('pagamento.processar_pagamento') }}" method="POST">
+                <input type="hidden" name="produto_id" value="{{ produto.id }}">
+                
+                <div class="form-group">
+                    <label>Nome Completo</label>
+                    <input type="text" name="nome" required placeholder="João da Silva">
+                </div>
+                <div class="form-group">
+                    <label>CPF</label>
+                    <input type="text" id="cpf" name="cpf" required placeholder="000.000.000-00">
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp</label>
+                    <input type="text" id="telefone" name="telefone" required placeholder="(11) 90000-0000">
+                </div>
+                <div class="form-group">
+                    <label>E-mail</label>
+                    <input type="email" name="email" required placeholder="joao@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Endereço Completo (Rua, Número, CEP, Cidade, Estado)</label>
+                    <input type="text" name="endereco" required placeholder="Rua Exemplo, 123 - São Paulo, SP">
+                </div>
+                
+                <button type="submit" class="btn-comprar btn-block">Ir para Pagamento Seguro</button>
+            </form>
+            <p style="text-align:center; font-size:0.8rem; margin-top:20px; color:gray;">Ambiente 100% seguro pelo Mercado Pago.</p>
+        </div>
+    </main>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

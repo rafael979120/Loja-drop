@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>Erro</title><link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head>
+<body>
+    <header><a href="/">LOJA DROP</a></header>
+    <main style="text-align:center; margin-top:100px;">
+        <h1>Ops! Algo deu errado.</h1>
+        <p>{{ mensagem }}</p>
+        <a href="/" class="btn-comprar" style="margin-top:20px;">Voltar para a loja</a>
+    </main>
+</body>
+</html>

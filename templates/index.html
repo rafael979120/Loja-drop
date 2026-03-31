@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sua loja de tecnologia com os melhores preços.">
+    <title>Loja Drop Tech</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <a href="/">LOJA DROP</a>
+    </header>
+    <main>
+        <div class="grid-produtos">
+            {% for p in produtos %}
+            <a href="{{ url_for('main.produto', produto_id=p.id) }}" class="card-produto">
+                <img src="{{ url_for('static', filename='img/produtos/' ~ p.imagem) }}" alt="{{ p.nome }}" onerror="this.src='https://via.placeholder.com/250'">
+                <h3>{{ p.nome }}</h3>
+                <p>R$ {{ "%.2f"|format(p.preco)|replace('.', ',') }}</p>
+                <span class="btn-comprar">Ver Detalhes</span>
+            </a>
+            {% endfor %}
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Loja Drop. Todos os direitos reservados.</p>
+        <a href="/termos">Termos de Uso</a> | <a href="/privacidade">Privacidade</a> | <a href="/contato">Contato</a>
+    </footer>
+</body>
+</html>
