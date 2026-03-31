@@ -1,5 +1,6 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 from utils.helpers import PRODUTOS, get_produto_by_id
+from models.db import get_db_connection
 
 main_bp = Blueprint('main', __name__)
 
@@ -36,3 +37,20 @@ def termos(): return render_template('termos.html')
 
 @main_bp.route('/contato')
 def contato(): return render_template('contato.html')
+# --- PAINEL DE CONTROLE SECRETO ---
+@main_bp.route('/painel_secreto')
+def painel_secreto():
+    # Sistema de segurança simples: só entra quem tiver a senha na URL
+    senha = request.args.get('senha')
+    
+    # Você pode trocar 'rafael123' pela senha que você quiser!
+    if senha != 'rafael123': 
+        return "Acesso Negado. Senha incorreta.", 403
+
+    # Se a senha estiver certa, busca os pedidos no banco de dados
+    conn = get_db_connection()
+    # Pega todos os pedidos, do mais novo pro mais velho
+    pedidos = conn.execute('SELECT * FROM pedidos ORDER BY id DESC').fetchall()
+    conn.close()
+
+    return render_template('admin.html', pedidos=pedidos)
